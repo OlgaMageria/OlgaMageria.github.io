@@ -253,6 +253,46 @@
             text-decoration: underline;
         }
 
+        /* ===== NEW: hidden extra projects + toggle arrow ===== */
+        .extra-project {
+            display: none;
+        }
+
+        .extra-project.show {
+            display: block;
+        }
+
+        .projects-toggle {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px 0;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: #4ecca3;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+        }
+
+        .projects-toggle:hover,
+        .projects-toggle:focus {
+            border-bottom-color: #4ecca3;
+            background: rgba(78, 204, 163, 0.06);
+            outline: none;
+        }
+
+        .projects-toggle .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .projects-toggle[aria-expanded="true"] .arrow {
+            transform: rotate(180deg);
+        }
+        /* ===== END NEW ===== */
+
         /* Timeline */
         .timeline {
             position: relative;
@@ -466,6 +506,13 @@
         <section id="projects">
             <h2>Featured Projects</h2>
             <div class="projects-grid">
+                <!-- Always visible -->
+                <div class="project-card">
+                    <h3>EpicStaff</h3>
+                    <p>EpicStaff is a self-hosted, source-available agent runtime that lets operations teams own their AI agent flows inside their own infrastructure — running on any LLM they choose, with Graph RAG over their documents and an audit trail attributing every prompt and tool call to a named principal.</p>
+                    <a href="https://github.com/EpicStaff/EpicStaff" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+
                 <div class="project-card">
                     <h3>Cat Spy API (with MCP)</h3>
                     <p>A FastAPI-based application build for Spy Cat Agency for managing cats and their missions using MCP (for now only database connection; weather API, file system - in progress). </p>
@@ -476,31 +523,36 @@
                     <h3>Science research project</h3>
                     <p>My commercial project which consisted of building a web application for medical researchers using the Django REST Framework (DRF). The core idea of the project was to help scientists streamline their literature review process.</p>
                 </div>
-                
-                <div class="project-card">
+                <!-- Hidden by default -->
+                <div class="project-card extra-project">
                     <h3>Photo Share</h3>
                     <p>Photo Share is a web application that allows users to share and discover photos. Users can comment on each other's photos and rate them.</p>
                     <a href="https://github.com/OlgaMageria/PhotoShare-by-Rapid-Creators" class="project-link" target="_blank">View on GitHub →</a>
                 </div>
-                
-                <div class="project-card">
+
+                <div class="project-card extra-project">
                     <h3>Parking management system</h3>
                     <p>The project includes user authentication, online credit card payments, and AI license plate detection to automate parking sessions. Users can also view their parking history and payment history for a seamless experience.</p>
                     <a href="https://github.com/OlgaMageria/Parking-management-system" class="project-link" target="_blank">View on GitHub →</a>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card extra-project">
                     <h3>Culinary Hub</h3>
                     <p>Culinary Hub, a Django-based platform where users can register, share recipes, and interact with a community of food enthusiasts. All submitted recipes undergo moderation before being published. Users can leave comments and rate recipes.</p>
                     <a href="https://github.com/OlgaMageria/Culinary-Hub-recipe-app" class="project-link" target="_blank">View on GitHub →</a>
                 </div>
                 
-                <div class="project-card">
+                <div class="project-card extra-project">
                     <h3>My Habits Tracker</h3>
                     <p>Telegram bot designed to manage habits with customizable durations (daily, weekly, or monthly). The bot supports full CRUD operations.</p>
                     <a href="https://github.com/OlgaMageria/My-Habits-Tracker-Telegram-Bot" class="project-link" target="_blank">View on GitHub →</a>
                 </div>
             </div>
+
+            <!-- Toggle arrow -->
+            <button class="projects-toggle" id="projectsToggle" aria-expanded="false" aria-controls="projects" aria-label="Show more projects">
+                <span class="arrow">▼</span>
+            </button>
         </section>
 
         <!-- Experience Section -->
@@ -509,19 +561,25 @@
             <div class="timeline">
                 <div class="timeline-item">
                     <h3>Junior Python Developer</h3>
-                    <div class="date">2024 - Present | Computools</div>
+                    <div class="date">05.2026 - Present | HYS-Enterprise</div>
+                    <p>Build and maintain backend services for a self-hosted AI agent platform EpicStaff deployed inside customer infrastructure.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Junior Python Developer</h3>
+                    <div class="date">12.2024 - 10.2025 | Computools</div>
                     <p>Built web applications using Django, collaborated with cross-functional teams, and participated in code reviews. Gained experience in agile development methodologies.</p>
                 </div>
                 
                 <div class="timeline-item">
                     <h3>Head Accountant</h3>
-                    <div class="date">2019 - 2022 | Private Sector</div>
+                    <div class="date">04.2019 - 09.2022 | Private Sector</div>
                     <p>Managed financial reporting, budgeting, and forecasting. Implemented automation to improve efficiency.</p>
                 </div>
                 
                 <div class="timeline-item">
                     <h3>Economist (Corporate Clients)</h3>
-                    <div class="date">2014 - 2019 | JSC Oschadbank</div>
+                    <div class="date">08.2014 - 04.2019 | JSC Oschadbank</div>
                     <p>Built and maintained strong relationships with corporate clients, providing expert economic and financial consulting while managing corporate accounts and transactions. Expanded the client portfolio through proactive engagement.</p>
                 </div>
             </div>
@@ -589,6 +647,18 @@
         sections.forEach((section, index) => {
             section.style.animationDelay = (index * 0.1) + 's';
         });
+
+        // ===== NEW: toggle hidden projects =====
+        const projectsToggle = document.getElementById('projectsToggle');
+        const extraProjects = document.querySelectorAll('.extra-project');
+
+        projectsToggle.addEventListener('click', () => {
+            const isOpen = projectsToggle.getAttribute('aria-expanded') === 'true';
+            extraProjects.forEach(card => card.classList.toggle('show', !isOpen));
+            projectsToggle.setAttribute('aria-expanded', String(!isOpen));
+            projectsToggle.setAttribute('aria-label', isOpen ? 'Show more projects' : 'Show fewer projects');
+        });
+        // ===== END NEW =====
     </script>
 </body>
 </html>
