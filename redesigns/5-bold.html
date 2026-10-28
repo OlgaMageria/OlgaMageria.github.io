@@ -188,15 +188,16 @@
         body { position: relative; }
         .sunflowers { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
         .sunflower { position: absolute; color: var(--accent); opacity: .16; }
-        .sunflower.one { width: 600px; top: -40px; right: -110px; transform: rotate(8deg); }
-        .sunflower.two { width: 540px; top: 1280px; left: -150px; transform: rotate(-14deg); }
-        .sunflower.three { width: 480px; bottom: 140px; left: -120px; transform: rotate(22deg); }
+        /* Each flower is centred on a page edge, so exactly half of it shows */
+        .sunflower.one { width: 860px; top: -80px; right: -430px; transform: rotate(8deg); }
+        .sunflower.two { width: 860px; top: 1150px; left: -430px; transform: rotate(-14deg); }
+        .sunflower.three { width: 860px; bottom: 40px; right: -430px; transform: rotate(22deg); }
         .wrap, .marquee { position: relative; z-index: 1; }
 
         @media (max-width: 860px) {
-            .sunflower.one { width: 460px; top: -120px; right: -230px; }
-            .sunflower.two { width: 380px; left: -220px; }
-            .sunflower.three { width: 380px; left: -200px; }
+            .sunflower.one { width: 520px; top: -40px; right: -260px; }
+            .sunflower.two { width: 520px; left: -260px; }
+            .sunflower.three { width: 520px; right: -260px; }
         }
 
         @media (max-width: 860px) {
@@ -225,9 +226,9 @@
         </defs>
     </svg>
     <div class="sunflowers" aria-hidden="true">
-        <svg class="sunflower one" viewBox="-190 -190 380 380"><use href="#sunflower"/></svg>
-        <svg class="sunflower two" viewBox="-190 -190 380 380"><use href="#sunflower"/></svg>
-        <svg class="sunflower three" viewBox="-190 -190 380 380"><use href="#sunflower"/></svg>
+        <svg class="sunflower one" viewBox="-190 -190 380 380"><use href="#sunflower" x="-190" y="-190" width="380" height="380"/></svg>
+        <svg class="sunflower two" viewBox="-190 -190 380 380"><use href="#sunflower" x="-190" y="-190" width="380" height="380"/></svg>
+        <svg class="sunflower three" viewBox="-190 -190 380 380"><use href="#sunflower" x="-190" y="-190" width="380" height="380"/></svg>
     </div>
     <div class="wrap">
         <div class="topbar">
