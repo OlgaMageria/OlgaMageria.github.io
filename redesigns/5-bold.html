@@ -184,6 +184,21 @@
             color: var(--muted);
         }
 
+        /* Faint sunflower line-art behind the content */
+        body { position: relative; }
+        .sunflowers { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+        .sunflower { position: absolute; color: var(--accent); opacity: .16; }
+        .sunflower.one { width: 600px; top: -40px; right: -110px; transform: rotate(8deg); }
+        .sunflower.two { width: 540px; top: 1280px; left: -150px; transform: rotate(-14deg); }
+        .sunflower.three { width: 480px; bottom: 140px; left: -120px; transform: rotate(22deg); }
+        .wrap, .marquee { position: relative; z-index: 1; }
+
+        @media (max-width: 860px) {
+            .sunflower.one { width: 460px; top: -120px; right: -230px; }
+            .sunflower.two { width: 380px; left: -220px; }
+            .sunflower.three { width: 380px; left: -200px; }
+        }
+
         @media (max-width: 860px) {
             .wrap { padding: 0 16px; }
             header { grid-template-columns: 1fr; padding: 36px 0 32px; }
@@ -198,6 +213,22 @@
     </style>
 </head>
 <body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <path id="petal" d="M0,-64 C18,-92 20,-140 0,-178 C-20,-140 -18,-92 0,-64 Z M0,-78 L0,-150"/>
+            <symbol id="sunflower" viewBox="-190 -190 380 380" fill="none" stroke="currentColor" stroke-width="1.4" vector-effect="non-scaling-stroke">
+                <g><use href="#petal" transform="rotate(0.0)"/><use href="#petal" transform="rotate(20.0)"/><use href="#petal" transform="rotate(40.0)"/><use href="#petal" transform="rotate(60.0)"/><use href="#petal" transform="rotate(80.0)"/><use href="#petal" transform="rotate(100.0)"/><use href="#petal" transform="rotate(120.0)"/><use href="#petal" transform="rotate(140.0)"/><use href="#petal" transform="rotate(160.0)"/><use href="#petal" transform="rotate(180.0)"/><use href="#petal" transform="rotate(200.0)"/><use href="#petal" transform="rotate(220.0)"/><use href="#petal" transform="rotate(240.0)"/><use href="#petal" transform="rotate(260.0)"/><use href="#petal" transform="rotate(280.0)"/><use href="#petal" transform="rotate(300.0)"/><use href="#petal" transform="rotate(320.0)"/><use href="#petal" transform="rotate(340.0)"/></g>
+                <g><use href="#petal" transform="rotate(10.0) scale(.82)"/><use href="#petal" transform="rotate(30.0) scale(.82)"/><use href="#petal" transform="rotate(50.0) scale(.82)"/><use href="#petal" transform="rotate(70.0) scale(.82)"/><use href="#petal" transform="rotate(90.0) scale(.82)"/><use href="#petal" transform="rotate(110.0) scale(.82)"/><use href="#petal" transform="rotate(130.0) scale(.82)"/><use href="#petal" transform="rotate(150.0) scale(.82)"/><use href="#petal" transform="rotate(170.0) scale(.82)"/><use href="#petal" transform="rotate(190.0) scale(.82)"/><use href="#petal" transform="rotate(210.0) scale(.82)"/><use href="#petal" transform="rotate(230.0) scale(.82)"/><use href="#petal" transform="rotate(250.0) scale(.82)"/><use href="#petal" transform="rotate(270.0) scale(.82)"/><use href="#petal" transform="rotate(290.0) scale(.82)"/><use href="#petal" transform="rotate(310.0) scale(.82)"/><use href="#petal" transform="rotate(330.0) scale(.82)"/><use href="#petal" transform="rotate(350.0) scale(.82)"/></g>
+                <circle r="62"/><circle r="50"/>
+                <g class="seeds" stroke-dasharray="2 6"><circle r="38"/><circle r="26"/><circle r="14"/></g>
+            </symbol>
+        </defs>
+    </svg>
+    <div class="sunflowers" aria-hidden="true">
+        <svg class="sunflower one" viewBox="-190 -190 380 380"><use href="#sunflower"/></svg>
+        <svg class="sunflower two" viewBox="-190 -190 380 380"><use href="#sunflower"/></svg>
+        <svg class="sunflower three" viewBox="-190 -190 380 380"><use href="#sunflower"/></svg>
+    </div>
     <div class="wrap">
         <div class="topbar">
             <span>OM / CV</span>
