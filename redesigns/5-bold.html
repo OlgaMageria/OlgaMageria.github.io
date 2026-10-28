@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olga Mageria - Python Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Style 5 — Bold: big type, hard borders, a single loud accent */
+        :root {
+            --paper: #f4f1e8;
+            --ink: #111111;
+            --accent: #ffd23f;
+            --muted: #555049;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Grotesk', system-ui, sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.55;
+            font-size: 16px;
+        }
+
+        a { color: inherit; }
+
+        .wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+        /* Top bar */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 0;
+            border-bottom: 3px solid var(--ink);
+            font-weight: 700;
+            flex-wrap: wrap;
+        }
+        .topbar nav { display: flex; gap: 22px; flex-wrap: wrap; }
+        .topbar nav a { text-decoration: none; }
+        .topbar nav a:hover { background: var(--accent); }
+
+        /* Hero */
+        header {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 40px;
+            align-items: end;
+            padding: 56px 0 40px;
+            border-bottom: 3px solid var(--ink);
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(3.4rem, 10vw, 8.5rem);
+            line-height: .88;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+        h1 .hl { background: var(--accent); padding: 0 .08em; }
+
+        .title { font-family: 'Archivo Black', sans-serif; font-size: 1.6em; margin-top: 22px; text-transform: uppercase; }
+        .tagline { font-size: 1.15em; color: var(--muted); margin-top: 4px; }
+
+        .profile-photo {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            border: 3px solid var(--ink);
+            box-shadow: 10px 10px 0 var(--ink);
+            filter: grayscale(100%) contrast(1.1);
+            transition: filter .3s;
+        }
+        .profile-photo:hover { filter: none; }
+
+        .social-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+        .btn {
+            padding: 12px 22px;
+            border: 3px solid var(--ink);
+            background: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 4px 4px 0 var(--ink);
+            transition: transform .12s, box-shadow .12s;
+            display: inline-block;
+        }
+        .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+        .btn.primary { background: var(--accent); }
+
+        /* Marquee */
+        .marquee {
+            background: var(--ink);
+            color: var(--accent);
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.4em;
+            padding: 12px 0;
+            text-transform: uppercase;
+        }
+        .marquee-track { display: inline-block; animation: scroll 30s linear infinite; }
+        .marquee span { margin: 0 18px; }
+        .marquee span::after { content: '✦'; margin-left: 36px; color: #fff; }
+        @keyframes scroll { to { transform: translateX(-50%); } }
+
+        /* Sections */
+        section { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 56px 0; border-bottom: 3px solid var(--ink); }
+
+        h2 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2em;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        h2 .n { display: block; font-size: 2.2em; -webkit-text-stroke: 2px var(--ink); color: transparent; margin-bottom: 8px; }
+
+        .about-text { font-size: 1.6em; font-weight: 500; line-height: 1.35; }
+
+        .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin-top: 32px; border: 3px solid var(--ink); }
+        .fact { padding: 16px 20px; }
+        .fact + .fact { border-left: 3px solid var(--ink); }
+        .fact small { display: block; font-weight: 700; text-transform: uppercase; font-size: .75em; letter-spacing: .1em; color: var(--muted); }
+        .fact b { font-family: 'Archivo Black', sans-serif; font-size: 1.5em; }
+
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .skill-tag { border: 2px solid var(--ink); padding: 4px 12px; font-weight: 700; background: #fff; }
+
+        /* Projects as rows */
+        .project-row {
+            display: grid;
+            grid-template-columns: 56px 1fr auto;
+            gap: 20px;
+            align-items: start;
+            padding: 22px 16px;
+            border-top: 2px solid var(--ink);
+            transition: background .15s;
+        }
+        .project-row:last-child { border-bottom: 2px solid var(--ink); }
+        .project-row:hover { background: var(--accent); }
+        .project-row .num { font-family: 'Archivo Black', sans-serif; font-size: 1.3em; }
+        .project-row h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.35em; text-transform: uppercase; line-height: 1.15; }
+        .project-row p { margin-top: 6px; color: #2b2925; max-width: 640px; }
+        .project-link { font-weight: 700; white-space: nowrap; text-decoration: none; border-bottom: 3px solid var(--ink); }
+        .private { font-weight: 700; white-space: nowrap; color: var(--muted); }
+
+        /* Jobs */
+        .job {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 24px;
+            padding: 22px 0;
+            border-top: 2px solid var(--ink);
+        }
+        .job:first-child { border-top: none; padding-top: 0; }
+        .job .years { font-family: 'Archivo Black', sans-serif; font-size: 1.15em; }
+        .job .org { display: inline-block; background: var(--ink); color: var(--paper); padding: 1px 8px; font-weight: 700; font-size: .85em; margin-top: 6px; }
+        .job h3 { font-family: 'Archivo Black', sans-serif; font-size: 1.25em; text-transform: uppercase; }
+        .job p { margin-top: 4px; }
+        .job.now .years { background: var(--accent); display: inline; padding: 0 4px; }
+
+        footer {
+            padding: 32px 0 48px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 860px) {
+            .wrap { padding: 0 16px; }
+            header { grid-template-columns: 1fr; padding: 36px 0 32px; }
+            header .profile-photo { max-width: 220px; order: -1; }
+            section { grid-template-columns: 1fr; gap: 24px; padding: 40px 0; }
+            .about-text { font-size: 1.25em; }
+            .project-row { grid-template-columns: 1fr; gap: 8px; padding: 18px 8px; }
+            .job { grid-template-columns: 1fr; gap: 6px; }
+            .facts { grid-template-columns: 1fr; }
+            .fact + .fact { border-left: none; border-top: 3px solid var(--ink); }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <span>OM / CV</span>
+            <nav>
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#experience">Career</a>
+                <a href="#education">Education</a>
+            </nav>
+        </div>
+
+        <header>
+            <div>
+                <h1>Olga<br><span class="hl">Mageria</span></h1>
+                <p class="title">Python Developer</p>
+                <p class="tagline">Building elegant solutions with Python | Backend enthusiast</p>
+                <div class="social-links">
+                    <a href="https://github.com/olgamageria" class="btn" target="_blank">GitHub</a>
+                    <a href="mailto:olgamageria@gmail.com" class="btn">Email</a>
+                    <a href="https://linkedin.com/in/olga-mageria" class="btn" target="_blank">LinkedIn</a>
+                    <a href="https://docs.google.com/uc?export=download&id=1LCTVBoePeovv7nbkth_VQlqAkqc5U_C5" download class="btn primary">Download CV ↓</a>
+                </div>
+            </div>
+            <img src="../profile_photo.jpeg" alt="Olga Mageria" class="profile-photo">
+        </header>
+    </div>
+
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>Python</span><span>Django</span><span>FastAPI</span><span>Flask</span><span>PostgreSQL</span><span>Docker</span><span>Postman</span><span>Git</span><span>Linux</span><span>CI/CD</span>
+            <span>Python</span><span>Django</span><span>FastAPI</span><span>Flask</span><span>PostgreSQL</span><span>Docker</span><span>Postman</span><span>Git</span><span>Linux</span><span>CI/CD</span>
+        </div>
+    </div>
+
+    <div class="wrap">
+        <section id="about">
+            <h2><span class="n">01</span>About Me</h2>
+            <div>
+                <p class="about-text">Passionate Python developer with expertise in building scalable applications, data analysis, and automation. I love turning complex problems into simple, elegant solutions.</p>
+                <div class="facts">
+                    <div class="fact"><small>English</small><b>B2</b></div>
+                    <div class="fact"><small>Ukrainian</small><b>Native</b></div>
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Django</span>
+                    <span class="skill-tag">FastAPI</span>
+                    <span class="skill-tag">Flask</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Postman</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">Linux</span>
+                    <span class="skill-tag">CI/CD</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2><span class="n">02</span>Featured Projects</h2>
+            <div>
+                <div class="project-row">
+                    <span class="num">01</span>
+                    <div><h3>EpicStaff</h3><p>EpicStaff is a self-hosted, source-available agent runtime that lets operations teams own their AI agent flows inside their own infrastructure — running on any LLM they choose, with Graph RAG over their documents and an audit trail attributing every prompt and tool call to a named principal.</p></div>
+                    <a href="https://github.com/EpicStaff/EpicStaff" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+                <div class="project-row">
+                    <span class="num">02</span>
+                    <div><h3>Cat Spy API (with MCP)</h3><p>A FastAPI-based application build for Spy Cat Agency for managing cats and their missions using MCP (for now only database connection; weather API, file system - in progress).</p></div>
+                    <a href="https://github.com/OlgaMageria/cat_spy_app" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+                <div class="project-row">
+                    <span class="num">03</span>
+                    <div><h3>Science research project</h3><p>My commercial project which consisted of building a web application for medical researchers using the Django REST Framework (DRF). The core idea of the project was to help scientists streamline their literature review process.</p></div>
+                    <span class="private">Commercial</span>
+                </div>
+                <div class="project-row">
+                    <span class="num">04</span>
+                    <div><h3>Photo Share</h3><p>Photo Share is a web application that allows users to share and discover photos. Users can comment on each other's photos and rate them.</p></div>
+                    <a href="https://github.com/OlgaMageria/PhotoShare-by-Rapid-Creators" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+                <div class="project-row">
+                    <span class="num">05</span>
+                    <div><h3>Parking management system</h3><p>The project includes user authentication, online credit card payments, and AI license plate detection to automate parking sessions. Users can also view their parking history and payment history for a seamless experience.</p></div>
+                    <a href="https://github.com/OlgaMageria/Parking-management-system" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+                <div class="project-row">
+                    <span class="num">06</span>
+                    <div><h3>Culinary Hub</h3><p>Culinary Hub, a Django-based platform where users can register, share recipes, and interact with a community of food enthusiasts. All submitted recipes undergo moderation before being published. Users can leave comments and rate recipes.</p></div>
+                    <a href="https://github.com/OlgaMageria/Culinary-Hub-recipe-app" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+                <div class="project-row">
+                    <span class="num">07</span>
+                    <div><h3>My Habits Tracker</h3><p>Telegram bot designed to manage habits with customizable durations (daily, weekly, or monthly). The bot supports full CRUD operations.</p></div>
+                    <a href="https://github.com/OlgaMageria/My-Habits-Tracker-Telegram-Bot" class="project-link" target="_blank">View on GitHub →</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2><span class="n">03</span>Career Path</h2>
+            <div>
+                <div class="job now">
+                    <div><span class="years">05.2026 – NOW</span><br><span class="org">HYS-Enterprise</span></div>
+                    <div><h3>Junior Python Developer</h3><p>Build and maintain backend services for a self-hosted AI agent platform EpicStaff deployed inside customer infrastructure.</p></div>
+                </div>
+                <div class="job">
+                    <div><span class="years">12.2024 – 10.2025</span><br><span class="org">Computools</span></div>
+                    <div><h3>Junior Python Developer</h3><p>Built web applications using Django, collaborated with cross-functional teams, and participated in code reviews. Gained experience in agile development methodologies.</p></div>
+                </div>
+                <div class="job">
+                    <div><span class="years">04.2019 – 09.2022</span><br><span class="org">Private Sector</span></div>
+                    <div><h3>Head Accountant</h3><p>Managed financial reporting, budgeting, and forecasting. Implemented automation to improve efficiency.</p></div>
+                </div>
+                <div class="job">
+                    <div><span class="years">08.2014 – 04.2019</span><br><span class="org">JSC Oschadbank</span></div>
+                    <div><h3>Economist (Corporate Clients)</h3><p>Built and maintained strong relationships with corporate clients, providing expert economic and financial consulting while managing corporate accounts and transactions. Expanded the client portfolio through proactive engagement.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2><span class="n">04</span>Education</h2>
+            <div>
+                <div class="job">
+                    <div><span class="years">2005 – 2010</span><br><span class="org">Zaporizhzhya State Engineering Academy</span></div>
+                    <div><h3>Master's Degree in Cybernetic Economy</h3><p>Specialized in economic modeling and data analysis.</p></div>
+                </div>
+                <div class="job">
+                    <div><span class="years">2023 – 2024</span><br><span class="org">IT School GoIT</span></div>
+                    <div>
+                        <h3>Python Developer Course</h3>
+                        <p>Intensive course covering Python programming, web development, and data analysis.</p>
+                        <a class="btn primary" style="margin-top: 14px;" href="https://drive.google.com/file/d/18_Em5_AlY6DUjMSiONIZUoJwJUGZV_CA/view?usp=sharing" target="_blank">View Certificate</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>© 2025 Olga Mageria. Built with passion and Python 🐍</span>
+            <span>Last updated: October 2025</span>
+        </footer>
+    </div>
+</body>
+</html>
