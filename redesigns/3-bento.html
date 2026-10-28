@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="color-scheme" content="dark">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olga Mageria - Python Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Style 3 — Bento (dark): the whole CV as a grid of tiles, one screen overview */
+        :root {
+            --bg: #0c0d10;
+            --tile: #16181d;
+            --chip: #22252c;
+            --ink: #eceef2;
+            --muted: #9098a6;
+            --line: #23262d;
+            --accent: #7c7cff;
+            --accent-soft: #1f1f45;
+            --mint: #11291f;
+            --mint-ink: #6ee7b7;
+            --peach: #2e1d14;
+            --sky: #132536;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.55;
+            font-size: 15px;
+        }
+
+        a { color: inherit; }
+
+        .bento {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 32px 20px 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .tile {
+            background: var(--tile);
+            border-radius: 24px;
+            padding: 26px;
+            border: 1px solid var(--line);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .tile:hover { transform: translateY(-3px); border-color: #34384200; box-shadow: 0 0 0 1px #343842, 0 16px 40px rgba(0,0,0,.45); }
+
+        .label {
+            font-size: 0.72em;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        /* Tile spans */
+        .span-2 { grid-column: span 2; }
+        .span-3 { grid-column: span 3; }
+        .span-4 { grid-column: span 4; }
+        .row-2 { grid-row: span 2; }
+
+        /* Intro */
+        .intro {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+            background: radial-gradient(120% 90% at 100% 0%, #2a2a6b 0%, #16181d 60%);
+            color: #fff;
+            border: 1px solid #2c2f5e;
+        }
+        .intro-top { display: flex; gap: 20px; align-items: center; }
+        .profile-photo { width: 96px; height: 96px; border-radius: 22px; object-fit: cover; }
+        .status { display: inline-flex; align-items: center; gap: 8px; font-size: .82em; background: rgba(255,255,255,.1); padding: 6px 12px; border-radius: 99px; }
+        .status::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: #3ddc97; box-shadow: 0 0 0 4px rgba(61,220,151,.25); }
+        h1 { font-size: 2.9em; font-weight: 800; line-height: 1.02; letter-spacing: -0.03em; }
+        .title { color: #b9b9ff; font-weight: 600; font-size: 1.2em; margin-top: 8px; }
+        .tagline { color: #a8adb8; margin-top: 4px; }
+
+        /* Contacts */
+        .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px; }
+        .contacts a {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 16px;
+            padding: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            min-height: 84px;
+            transition: filter .2s;
+        }
+        .contacts a:hover { filter: brightness(1.2); }
+        .contacts a span { font-size: 1.4em; }
+        .contacts .gh { background: var(--chip); }
+        .contacts .em { background: var(--peach); }
+        .contacts .li { background: var(--sky); }
+        .contacts .cv { background: var(--accent); color: #fff; }
+
+        /* About */
+        .about p { font-size: 1.12em; font-weight: 500; }
+
+        /* Languages */
+        .lang { display: flex; flex-direction: column; gap: 10px; background: var(--mint); border-color: #1c3d2f; }
+        .lang b { color: var(--mint-ink); }
+        .lang-row { display: flex; justify-content: space-between; align-items: baseline; font-weight: 600; }
+        .lang-row b { font-size: 1.6em; font-weight: 800; }
+
+        /* Skills */
+        .skills { display: flex; flex-wrap: wrap; gap: 8px; }
+        .skill-tag { padding: 7px 14px; border-radius: 99px; background: var(--chip); font-weight: 600; font-size: .9em; }
+
+        /* Experience */
+        .jobs { display: grid; gap: 4px; }
+        .job { display: grid; grid-template-columns: 150px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid var(--line); }
+        .job:first-child { border-top: none; padding-top: 0; }
+        .job .date { font-size: .85em; color: var(--muted); font-weight: 600; }
+        .job .org { display: inline-block; font-size: .78em; font-weight: 700; padding: 2px 10px; border-radius: 99px; background: var(--accent-soft); color: #b3b3ff; margin-top: 6px; }
+        .job h3 { font-size: 1.05em; font-weight: 700; }
+        .job p { color: var(--muted); font-size: .93em; margin-top: 2px; }
+        .job.now .date { color: var(--accent); }
+
+        /* Projects */
+        .project-card { display: flex; flex-direction: column; }
+        .project-card .num { font-size: .78em; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+        .project-card h3 { font-size: 1.15em; font-weight: 800; letter-spacing: -0.01em; }
+        .project-card p { color: var(--muted); font-size: .92em; margin: 8px 0 16px; flex: 1; }
+        .project-link {
+            align-self: flex-start;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: .88em;
+            padding: 8px 14px;
+            border-radius: 99px;
+            background: var(--chip);
+            transition: background .2s, color .2s;
+        }
+        .project-link:hover { background: var(--accent); color: #fff; }
+        .project-card.featured { background: linear-gradient(160deg, var(--accent-soft), var(--tile)); border-color: #2c2f5e; }
+        .project-card.featured .project-link { background: var(--accent); color: #fff; }
+        .tag-private { align-self: flex-start; font-size: .82em; font-weight: 700; color: var(--muted); padding: 8px 14px; border-radius: 99px; border: 1px dashed #3a3e47; }
+
+        /* Education */
+        .edu h3 { font-size: 1.05em; font-weight: 700; }
+        .edu .date { font-size: .85em; color: var(--muted); font-weight: 600; margin: 4px 0 8px; }
+        .edu p { font-size: .93em; }
+        .cert-btn {
+            display: inline-block;
+            margin-top: 14px;
+            padding: 9px 16px;
+            border-radius: 99px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: .88em;
+        }
+        .cert-btn:hover { filter: brightness(1.1); }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: .85em;
+            padding: 8px 20px 40px;
+        }
+
+        @media (max-width: 980px) {
+            .bento { grid-template-columns: repeat(2, 1fr); }
+            .span-3, .span-4 { grid-column: span 2; }
+            .row-2 { grid-row: auto; }
+        }
+
+        @media (max-width: 620px) {
+            .bento { grid-template-columns: 1fr; padding: 16px; gap: 12px; }
+            .span-2, .span-3, .span-4 { grid-column: auto; }
+            .tile { padding: 20px; border-radius: 20px; }
+            h1 { font-size: 2.2em; }
+            .job { grid-template-columns: 1fr; gap: 2px; }
+        }
+    </style>
+</head>
+<body>
+    <main class="bento">
+        <!-- Intro -->
+        <header class="tile intro span-2 row-2">
+            <div class="intro-top">
+                <img src="../profile_photo.jpeg" alt="Olga Mageria" class="profile-photo">
+                <span class="status">Python Developer @ HYS-Enterprise</span>
+            </div>
+            <div>
+                <h1>Olga<br>Mageria</h1>
+                <p class="title">Python Developer</p>
+                <p class="tagline">Building elegant solutions with Python | Backend enthusiast</p>
+            </div>
+        </header>
+
+        <!-- Contacts -->
+        <nav class="tile contacts span-2">
+            <a class="gh" href="https://github.com/olgamageria" target="_blank"><span>⌘</span>GitHub</a>
+            <a class="em" href="mailto:olgamageria@gmail.com"><span>✉</span>Email</a>
+            <a class="li" href="https://linkedin.com/in/olga-mageria" target="_blank"><span>in</span>LinkedIn</a>
+            <a class="cv" href="https://docs.google.com/uc?export=download&id=1LCTVBoePeovv7nbkth_VQlqAkqc5U_C5" download><span>↓</span>Download CV</a>
+        </nav>
+
+        <!-- About -->
+        <section class="tile about" id="about">
+            <div class="label">About Me</div>
+            <p>Passionate Python developer with expertise in building scalable applications, data analysis, and automation. I love turning complex problems into simple, elegant solutions.</p>
+        </section>
+
+        <!-- Languages -->
+        <section class="tile lang">
+            <div class="label">Languages</div>
+            <div class="lang-row"><span>English</span><b>B2</b></div>
+            <div class="lang-row"><span>Ukrainian</span><b>Native</b></div>
+        </section>
+
+        <!-- Skills -->
+        <section class="tile span-4">
+            <div class="label">Skills</div>
+            <div class="skills">
+                <span class="skill-tag">Python</span>
+                <span class="skill-tag">Django</span>
+                <span class="skill-tag">FastAPI</span>
+                <span class="skill-tag">Flask</span>
+                <span class="skill-tag">PostgreSQL</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Postman</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Linux</span>
+                <span class="skill-tag">CI/CD</span>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="tile span-3" id="experience">
+            <div class="label">Career Path</div>
+            <div class="jobs">
+                <div class="job now">
+                    <div><div class="date">05.2026 – Present</div><span class="org">HYS-Enterprise</span></div>
+                    <div><h3>Junior Python Developer</h3><p>Build and maintain backend services for a self-hosted AI agent platform EpicStaff deployed inside customer infrastructure.</p></div>
+                </div>
+                <div class="job">
+                    <div><div class="date">12.2024 – 10.2025</div><span class="org">Computools</span></div>
+                    <div><h3>Junior Python Developer</h3><p>Built web applications using Django, collaborated with cross-functional teams, and participated in code reviews. Gained experience in agile development methodologies.</p></div>
+                </div>
+                <div class="job">
+                    <div><div class="date">04.2019 – 09.2022</div><span class="org">Private Sector</span></div>
+                    <div><h3>Head Accountant</h3><p>Managed financial reporting, budgeting, and forecasting. Implemented automation to improve efficiency.</p></div>
+                </div>
+                <div class="job">
+                    <div><div class="date">08.2014 – 04.2019</div><span class="org">JSC Oschadbank</span></div>
+                    <div><h3>Economist (Corporate Clients)</h3><p>Built and maintained strong relationships with corporate clients, providing expert economic and financial consulting while managing corporate accounts and transactions. Expanded the client portfolio through proactive engagement.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="tile edu" id="education" style="display:flex;flex-direction:column;gap:22px;">
+            <div>
+                <div class="label">Education</div>
+                <h3>Master's Degree in Cybernetic Economy</h3>
+                <div class="date">2005 – 2010 · Zaporizhzhya State Engineering Academy</div>
+                <p>Specialized in economic modeling and data analysis.</p>
+            </div>
+            <div>
+                <h3>Python Developer Course</h3>
+                <div class="date">2023 – 2024 · IT School GoIT</div>
+                <p>Intensive course covering Python programming, web development, and data analysis.</p>
+                <a class="cert-btn" href="https://drive.google.com/file/d/18_Em5_AlY6DUjMSiONIZUoJwJUGZV_CA/view?usp=sharing" target="_blank">View Certificate</a>
+            </div>
+        </section>
+
+        <!-- Projects -->
+        <article class="tile project-card featured span-2" id="projects">
+            <div class="num">FEATURED PROJECT · 01</div>
+            <h3>EpicStaff</h3>
+            <p>EpicStaff is a self-hosted, source-available agent runtime that lets operations teams own their AI agent flows inside their own infrastructure — running on any LLM they choose, with Graph RAG over their documents and an audit trail attributing every prompt and tool call to a named principal.</p>
+            <a href="https://github.com/EpicStaff/EpicStaff" class="project-link" target="_blank">View on GitHub →</a>
+        </article>
+        <article class="tile project-card">
+            <div class="num">02</div>
+            <h3>Cat Spy API (with MCP)</h3>
+            <p>A FastAPI-based application build for Spy Cat Agency for managing cats and their missions using MCP (for now only database connection; weather API, file system - in progress).</p>
+            <a href="https://github.com/OlgaMageria/cat_spy_app" class="project-link" target="_blank">View on GitHub →</a>
+        </article>
+        <article class="tile project-card">
+            <div class="num">03</div>
+            <h3>Science research project</h3>
+            <p>My commercial project which consisted of building a web application for medical researchers using the Django REST Framework (DRF). The core idea of the project was to help scientists streamline their literature review process.</p>
+            <span class="tag-private">Commercial project</span>
+        </article>
+        <article class="tile project-card">
+            <div class="num">04</div>
+            <h3>Photo Share</h3>
+            <p>Photo Share is a web application that allows users to share and discover photos. Users can comment on each other's photos and rate them.</p>
+            <a href="https://github.com/OlgaMageria/PhotoShare-by-Rapid-Creators" class="project-link" target="_blank">View on GitHub →</a>
+        </article>
+        <article class="tile project-card">
+            <div class="num">05</div>
+            <h3>Parking management system</h3>
+            <p>The project includes user authentication, online credit card payments, and AI license plate detection to automate parking sessions. Users can also view their parking history and payment history for a seamless experience.</p>
+            <a href="https://github.com/OlgaMageria/Parking-management-system" class="project-link" target="_blank">View on GitHub →</a>
+        </article>
+        <article class="tile project-card">
+            <div class="num">06</div>
+            <h3>Culinary Hub</h3>
+            <p>Culinary Hub, a Django-based platform where users can register, share recipes, and interact with a community of food enthusiasts. All submitted recipes undergo moderation before being published. Users can leave comments and rate recipes.</p>
+            <a href="https://github.com/OlgaMageria/Culinary-Hub-recipe-app" class="project-link" target="_blank">View on GitHub →</a>
+        </article>
+        <article class="tile project-card">
+            <div class="num">07</div>
+            <h3>My Habits Tracker</h3>
+            <p>Telegram bot designed to manage habits with customizable durations (daily, weekly, or monthly). The bot supports full CRUD operations.</p>
+            <a href="https://github.com/OlgaMageria/My-Habits-Tracker-Telegram-Bot" class="project-link" target="_blank">View on GitHub →</a>
+        </article>
+    </main>
+
+    <footer>
+        <p>© 2025 Olga Mageria. Built with passion and Python 🐍</p>
+        <p style="margin-top: 4px;">Last updated: October 2025</p>
+    </footer>
+</body>
+</html>
